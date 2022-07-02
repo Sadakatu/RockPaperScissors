@@ -1,65 +1,76 @@
-﻿<Window x:Class="RockPaperScissors.MainWindow"
+﻿<Window x:Class="RockPaperScissors2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RockPaperScissors"
         mc:Ignorable="d"
-        Title="Rock Paper Scissors" Height="190" Width="450"
+        Title="Rock Paper Scissors" Height="200" Width="300"
         ResizeMode="NoResize">
-    
-    <StackPanel Margin="10">
-        <TextBlock Text="Take your pick and press GO!"/>
-        
-        <Grid Margin="0 10 0 0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            
-            <!--Player Choice-->
-            <ComboBox Grid.Column="0"
-                      Padding="5"
-                      Margin="0 0 5 0"
-                      x:Name="playerChoice">
-                <ComboBoxItem>Rock</ComboBoxItem>
-                <ComboBoxItem>Paper</ComboBoxItem>
-                <ComboBoxItem>Scissors</ComboBoxItem>
-            </ComboBox>
-            
-            <!--Execute button-->
-            <Button Content="GO!"
-                    Grid.Column="1"
-                    Margin="5 0 0 0"
-                    x:Name="executeBtn"
-                    Click="ExecuteBtn_Click"/>
-        </Grid>
+
+    <StackPanel Margin="5">
+        <!--Scoreboard-->
+        <TextBox x:Name="Scorebox"
+                 Padding="5"
+                 IsReadOnly="True"
+                 TextAlignment="Center"/>
 
         <Grid Margin="0 10 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
-            <!--PC Choice-->
-            <TextBox Grid.Column="0"
+
+            <!--Pc choice-->
+            <TextBox x:Name="PcChoiceBox"
+                     Grid.Column="0"
                      Padding="5"
                      Margin="0 0 5 0"
                      IsReadOnly="True"
-                     x:Name="pcChoice"/>
-            
-            <!--Result box-->
-            <TextBox Grid.Column="1"
+                     TextAlignment="Center"/>
+            <!--Player choice-->
+            <TextBox x:Name="PlayerChoiceBox"
+                     Grid.Column="1"
                      Padding="5"
                      Margin="5 0 0 0"
                      IsReadOnly="True"
-                     x:Name="resultBox"/>
+                     TextAlignment="Center"/>
         </Grid>
-        
-        <!--Ratio-->
-        <TextBox Margin="0 10 0 0"
+
+        <!--Result box-->
+        <TextBox x:Name="ResultBox"
+                 Margin="0 10 0 0"
                  Padding="5"
-                 TextAlignment="Center"
-                 x:Name="resultRatio"/>
+                 IsReadOnly="True"
+                 TextAlignment="Center"/>
+
+        <!--Player Buttons-->
+        <Grid Margin="0 10 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="BtnRock"
+                    Click="BtnRock_Click"
+                    Grid.Column="0"
+                    Content="Rock"
+                    Padding="5"
+                    Margin="2 0"/>
+
+            <Button x:Name="BtnPaper"
+                    Click="BtnPaper_Click"
+                    Grid.Column="1"
+                    Content="Paper"
+                    Padding="5"
+                    Margin="2 0"/>
+
+            <Button x:Name="BtnScissors"
+                    Click="BtnScissors_Click"
+                    Grid.Column="2"
+                    Content="Scissors"
+                    Padding="5"
+                    Margin="2 0"/>
+        </Grid>
     </StackPanel>
 </Window>

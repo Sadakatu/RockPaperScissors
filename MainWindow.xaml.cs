@@ -13,67 +13,104 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RockPaperScissors
+namespace RockPaperScissors2
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        int ScorePC = 0, ScorePL = 0;
+        //Essentials
+        Random Rnd = new Random();
 
-        public MainWindow()
+        //Scoring System
+        int PcScore = 0, PlayerScore = 0;
+
+        void PcScoreUp()
         {
-            InitializeComponent();
-
-            //Default player choice
-            playerChoice.SelectedIndex = 0;
-
-            //Default ratio
-            resultRatio.Text = $"PC [{ScorePC}] - Player [{ScorePL}]";
+            PcScore += 1;
+        }
+        void PlayerScoreUp()
+        {
+            PlayerScore += 1;
         }
 
-        private void ExecuteBtn_Click(object sender, RoutedEventArgs e)
+        void DisplayScore()
         {
-            Random random = new Random();
+            Scorebox.Text = $"PC {PcScore} - Player {PlayerScore}";
+        }
 
-            string[] PcOptions = { "Rock", "Paper", "Scissors" };
-            string PcChoice = PcOptions[random.Next(0, PcOptions.Length)];
+        //Pc choices
+        string PcChoice;
+        void SetPcChoice()
+        {
+            string[] options = { "Rock", "Paper", "Scissors" };
+            PcChoice = options[Rnd.Next(0, options.Length)];
+        }
 
-            string PlayerChoice;
-            if (playerChoice.SelectedIndex == 0)
-            {
-                PlayerChoice = "Rock";
-            }
-            else if (playerChoice.SelectedIndex == 1) {
-                PlayerChoice = "Paper";
-            }
-            else
-            {
-                PlayerChoice = "Scissors";
-            }
+        //Player choices
+        string PlayerChoice;
 
-            //Result
-            pcChoice.Text = PcChoice;
+        private void BtnRock_Click(object sender, RoutedEventArgs e)
+        {
+            PlayerChoice = "Rock";
+            MainExecution();
+        }
+
+        private void BtnPaper_Click(object sender, RoutedEventArgs e)
+        {
+            PlayerChoice = "Paper";
+            MainExecution();
+        }
+
+        private void BtnScissors_Click(object sender, RoutedEventArgs e)
+        {
+            PlayerChoice = "Scissors";
+            MainExecution();
+        }
+
+        //Display Choices
+        void DisplayChoices()
+        {
+            PcChoiceBox.Text = PcChoice;
+            PlayerChoiceBox.Text = PlayerChoice;
+        }
+
+        //Result board
+        void Result()
+        {
             if (PcChoice == PlayerChoice)
             {
-                resultBox.Text = "It's a draw!";
+                ResultBox.Text = "It's a draw!";
             }
             else if (
                 (PcChoice == "Rock" && PlayerChoice == "Scissors") ||
                 (PcChoice == "Paper" && PlayerChoice == "Rock") ||
                 (PcChoice == "Scissors" && PlayerChoice == "Paper"))
             {
-                resultBox.Text = "You lose, better luck next time!";
-                ScorePC += 1;
+                ResultBox.Text = "You lose, better luck next time!";
+                PcScoreUp();
             }
             else
             {
-                resultBox.Text = "You win! Congratulations!";
-                ScorePL += 1;
+                ResultBox.Text = "You win! Congratulations!";
+                PlayerScoreUp();
             }
+        }
 
-            resultRatio.Text = $"PC [{ScorePC}] - Player [{ScorePL}]";
+        void MainExecution()
+        {
+            SetPcChoice();
+            DisplayChoices();
+            Result();
+            DisplayScore();
+        }
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            DisplayScore();
         }
     }
 }
