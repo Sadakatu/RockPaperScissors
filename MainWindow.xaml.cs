@@ -21,7 +21,7 @@ namespace RockPaperScissors2
     public partial class MainWindow : Window
     {
         //Essentials
-        Random Rnd = new Random();
+        readonly Random Rnd = new Random();
 
         //Scoring System
         int PcScore = 0, PlayerScore = 0;
@@ -53,20 +53,17 @@ namespace RockPaperScissors2
 
         private void BtnRock_Click(object sender, RoutedEventArgs e)
         {
-            PlayerChoice = "Rock";
-            MainExecution();
+            MainExecution("Rock");
         }
 
         private void BtnPaper_Click(object sender, RoutedEventArgs e)
         {
-            PlayerChoice = "Paper";
-            MainExecution();
+            MainExecution("Paper");
         }
 
         private void BtnScissors_Click(object sender, RoutedEventArgs e)
         {
-            PlayerChoice = "Scissors";
-            MainExecution();
+            MainExecution("Scissors");
         }
 
         //Display Choices
@@ -77,11 +74,13 @@ namespace RockPaperScissors2
         }
 
         //Result board
-        void Result()
+        void DisplayResult()
         {
             if (PcChoice == PlayerChoice)
             {
                 ResultBox.Text = "It's a draw!";
+                PcChoiceBox.Background = Brushes.Yellow;
+                PlayerChoiceBox.Background = Brushes.Yellow;
             }
             else if (
                 (PcChoice == "Rock" && PlayerChoice == "Scissors") ||
@@ -90,19 +89,24 @@ namespace RockPaperScissors2
             {
                 ResultBox.Text = "You lose, better luck next time!";
                 PcScoreUp();
+                PcChoiceBox.Background = Brushes.Green;
+                PlayerChoiceBox.Background = Brushes.Red;
             }
             else
             {
                 ResultBox.Text = "You win! Congratulations!";
                 PlayerScoreUp();
+                PcChoiceBox.Background = Brushes.Red;
+                PlayerChoiceBox.Background = Brushes.Green;
             }
         }
 
-        void MainExecution()
+        void MainExecution(string SetPlayerChoice)
         {
+            PlayerChoice = SetPlayerChoice;
             SetPcChoice();
             DisplayChoices();
-            Result();
+            DisplayResult();
             DisplayScore();
         }
 
